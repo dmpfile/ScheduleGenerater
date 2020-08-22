@@ -1,29 +1,25 @@
-# schedule-generater
+# schedule-generator
 
-## Project setup
-```
-npm install
-```
+## Description
+It's important to visualize schedule, because we have 24 hours equally and have to manage tasks in the limited time.  
+Schedule-generater is possible to do them simply.  
+<strong>Let's try it!</strong>
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Features
+- Simple UI
+- Visualize time-line with chart
+- Share with Google Calender
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Requirement Browser
+- Google Chrome
 
-### Run your unit tests
-```
-npm run test:unit
-```
+## Usage
+- Access to [URL](https://google.com)!
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Author
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[@dmpfile](https://twitter.com/dmpfile)
+
+## License
+
+[MIT](http://b4b4r07.mit-license.org)
