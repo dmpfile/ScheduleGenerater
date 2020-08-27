@@ -14,7 +14,7 @@ Schedule-generater is possible to do them simply.
 - Google Chrome
 
 ## Usage
-- Access to [URL](https://google.com)!
+- Access to [URL](https://google.com)!(Sorry, Comming Soon)
 
 ## Author
 
