@@ -8,20 +8,26 @@
 
 <script>
 import firebase from "firebase";
+import { mapActions } from "vuex";
 
 export default {
   name: "Login",
   methods: {
+    ...mapActions(['setUserInfo']),
     signInWithGoogle() {
-      const provider = new firebase.auth.GoogleAuthProvider()
-      firebase.auth().signInWithPopup(provider).then((res) => {
-        if(res.credential) {
-          const token = res.credential.accessToken;
-          console.log(`token:${token}`); //Googleカレンダー追加で必要？
-        }
-        const user = res.user;
-        console.log(`user:${user}`); //Googleカレンダー追加で必要？
-      })
+      this.$gapi.login();
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((res) => {
+          if (res.credential) {
+            const token = res.credential.accessToken;
+            console.log(`token:${token}`);
+          }
+          const userInfo = res.user;
+          this.setUserInfo(userInfo);
+        });
     },
   },
 };
