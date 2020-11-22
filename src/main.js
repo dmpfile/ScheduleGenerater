@@ -25,10 +25,10 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 const apiConfig = {
-  apiKey: process.env.APIKEY,
-  clientId: process.env.CLIENTID,
-  discoveryDocs: [process.env.DISCOVERYDOCS],
-  scope: process.env.SCOPE,
+  apiKey: process.env.VUE_APP_APIKEY,
+  clientId: process.env.VUE_APP_CLIENTID,
+  discoveryDocs: [process.env.VUE_APP_DISCOVERYDOCS],
+  scope: process.env.VUE_APP_SCOPE,
 };
 Vue.use(VueGAPI, apiConfig);
 
