@@ -27,22 +27,28 @@
             <v-date-picker v-model="TargetDate" scrollable>
               <v-spacer></v-spacer>
               <v-btn text color="primary" @click="DateModal = false">Cancel</v-btn>
-              <v-btn text color="primary" @click="$refs.dialog.save(TargetDate)">OK</v-btn>
+              <v-btn text color="primary" @click="$refs.dialog.save(TargetDate); getCalenderEvents()">OK</v-btn>
             </v-date-picker>
           </v-dialog>
         </v-col>
       </v-row>
+      <v-row v-if="!datacollection.labels[0]">
+        <v-col cols=12 lg=12 md=12 sm=12 align="center">
+          <h1>No Plan… Let's Take a Break!😆</h1>
+        </v-col>
+      </v-row>
     </v-container>
 
-    <!-- Chart -->
+    <!-- PieChart START -->
     <pie-chart :chart-data="datacollection" :options="option" />
-    <button @click="getCalenderEvents">ボタン</button>
+    <!-- PieChart END -->
   </v-app>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import PieChart from "./PieChart.vue";
+import dayjs from "dayjs";
 
 export default {
   components: {
@@ -52,9 +58,15 @@ export default {
     return {
       TargetDate: new Date().toISOString().substr(0, 10),
       DateModal: false,
-      datacollection: null,
-      option: null,
+      datacollection: {
+        labels: [],
+        datasets: []
+      },
+      option: {},
     }
+  },
+  mounted() {
+    this.getCalenderEvents();
   },
   computed: {
     ...mapState(['userInfo'])
@@ -72,20 +84,31 @@ export default {
           resource: resource,
         });
         request.execute((res) => {
-          if(res.items) {
-            console.log(res.items)
-            const labels = res.items.map((item) => item.summary)
-            // const datalists = res.items.map((item) => item.)
+          if (res.items) {
+            this.parseDateTime(res);
           }
         });
       })
     },
+    parseDateTime(res) {
+      const labels = res.items.map((item) => item.summary);
+      const datalists = res.items.map((item) => {
+        const start = dayjs(item.start.dateTime);
+        const end = dayjs(item.end.dateTime);
+        const timeDiff = end.diff(start, 'minute') / 60;
+        return timeDiff;
+      });
+      this.fillData(labels, datalists);
+    },
     fillData(labels, data) {
       this.datacollection = {
+        labels,
         datasets: [
           {
-            labels,
-            backgroundColor: ['#f87979', '#008080'],
+            backgroundColor: data.map((item, index) => {
+              const h = (index * 5) * (360 / 100);
+              return `hsl(${h + 20}, 80%, 70%)`;
+            }),
             data
           },
         ],
