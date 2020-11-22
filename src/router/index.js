@@ -11,8 +11,18 @@ const router = new Router({
   routes: [
     { path: "/", component: Login },
     { path: "/login", name: "Login", component: Login },
-    { path: "/edit", name: "Edit", component: Edit },
-    { path: "/chart", name: "Chart", component: Chart },
+    {
+      path: "/edit",
+      name: "Edit",
+      component: Edit,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/chart",
+      name: "Chart",
+      component: Chart,
+      meta: { requiresAuth: true },
+    },
   ],
 });
 

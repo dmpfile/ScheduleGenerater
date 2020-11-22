@@ -4,6 +4,8 @@ import store from "./store";
 import router from "./router";
 import firebase from "firebase";
 import vuetify from "./plugins/vuetify";
+import VueGAPI from "vue-gapi";
+import axios from "axios";
 
 Vue.config.productionTip = false;
 
@@ -22,9 +24,30 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
+const apiConfig = {
+  apiKey: process.env.APIKEY,
+  clientId: process.env.CLIENTID,
+  discoveryDocs: [process.env.DISCOVERYDOCS],
+  scope: process.env.SCOPE,
+};
+Vue.use(VueGAPI, apiConfig);
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!firebase.auth().currentUser) {
+      next({ path: "/login" });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
 new Vue({
   store,
   router,
   vuetify,
+  axios,
   render: (h) => h(App),
 }).$mount("#app");
