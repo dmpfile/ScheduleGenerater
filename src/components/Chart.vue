@@ -32,7 +32,7 @@
           </v-dialog>
         </v-col>
       </v-row>
-      <v-row v-if="!datacollection.labels[0]">
+      <v-row v-if="noDataFlag">
         <v-col cols=12 lg=12 md=12 sm=12 align="center">
           <h1>No Plan… Let's Take a Break!😆</h1>
         </v-col>
@@ -63,6 +63,7 @@ export default {
         datasets: []
       },
       option: {},
+      noDataFlag: false,
     }
   },
   mounted() {
@@ -84,9 +85,8 @@ export default {
           resource: resource,
         });
         request.execute((res) => {
-          if (res.items) {
-            this.parseDateTime(res);
-          }
+          this.parseDateTime(res); // データが無くても更新されないとグラフが消えないため実行
+          this.noDataFlag = res.items.length ? false : true;
         });
       })
     },
