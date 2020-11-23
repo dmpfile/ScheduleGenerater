@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-navigation-drawer v-model="drawer" app clipped>
-      <v-list-item class="px-2">
+      <v-list-item class="px-2" v-if="isLogin">
         <v-list-item-avatar>
           <v-img :src="userInfo.iconImg"></v-img>
         </v-list-item-avatar>
