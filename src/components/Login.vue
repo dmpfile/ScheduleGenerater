@@ -17,6 +17,9 @@ export default {
     signInWithGoogle() {
       this.$gapi.login();
       const provider = new firebase.auth.GoogleAuthProvider();
+      provider.setCustomParameters({
+        prompt: 'select_account'
+      })
       firebase
         .auth()
         .signInWithPopup(provider)
