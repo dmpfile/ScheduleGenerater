@@ -68,7 +68,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['userInfo'])
+    ...mapState(["userInfo"]),
   },
   created() {
     firebase.auth().onAuthStateChanged((user) => {

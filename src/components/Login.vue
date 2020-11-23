@@ -13,13 +13,13 @@ import { mapActions } from "vuex";
 export default {
   name: "Login",
   methods: {
-    ...mapActions(['setUserInfo']),
+    ...mapActions(["setUserInfo"]),
     signInWithGoogle() {
       this.$gapi.login();
       const provider = new firebase.auth.GoogleAuthProvider();
       provider.setCustomParameters({
-        prompt: 'select_account'
-      })
+        prompt: "select_account",
+      });
       firebase
         .auth()
         .signInWithPopup(provider)

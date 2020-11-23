@@ -1,5 +1,5 @@
 <script>
-import { Pie, mixins } from 'vue-chartjs';
+import { Pie, mixins } from "vue-chartjs";
 const { reactiveProp } = mixins;
 
 export default {
@@ -15,8 +15,8 @@ export default {
       default: null,
     },
   },
-  mounted () {
-    this.renderChart(this.chartdata, this.options)
-  }
-}
+  mounted() {
+    this.renderChart(this.chartdata, this.options);
+  },
+};
 </script>

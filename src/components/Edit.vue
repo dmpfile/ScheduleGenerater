@@ -26,8 +26,12 @@
             </template>
             <v-date-picker v-model="TargetDate" scrollable>
               <v-spacer></v-spacer>
-              <v-btn text color="primary" @click="DateModal = false">Cancel</v-btn>
-              <v-btn text color="primary" @click="$refs.dialog.save(TargetDate)">OK</v-btn>
+              <v-btn text color="primary" @click="DateModal = false"
+                >Cancel</v-btn
+              >
+              <v-btn text color="primary" @click="$refs.dialog.save(TargetDate)"
+                >OK</v-btn
+              >
             </v-date-picker>
           </v-dialog>
         </v-col>
@@ -86,7 +90,9 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="validTimes()">Close</v-btn>
+            <v-btn color="blue darken-1" text @click="validTimes()"
+              >Close</v-btn
+            >
             <v-btn color="blue darken-1" text @click="validTimes()">Save</v-btn>
           </v-card-actions>
         </v-card>
@@ -127,7 +133,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['userInfo'])
+    ...mapState(["userInfo"]),
   },
   created() {
     this.makeTimesArray();
@@ -156,7 +162,7 @@ export default {
     },
     newSchedule() {
       const StartTime = `${dayjs().format("HH")}:00`;
-      const EndTime = `${dayjs().add(1, 'hour').format("HH")}:00`;
+      const EndTime = `${dayjs().add(1, "hour").format("HH")}:00`;
       this.ScheduleLists.push({
         Summary: "",
         StartTime,

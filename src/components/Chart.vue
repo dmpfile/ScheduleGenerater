@@ -26,14 +26,24 @@
             </template>
             <v-date-picker v-model="TargetDate" scrollable>
               <v-spacer></v-spacer>
-              <v-btn text color="primary" @click="DateModal = false">Cancel</v-btn>
-              <v-btn text color="primary" @click="$refs.dialog.save(TargetDate); getCalenderEvents()">OK</v-btn>
+              <v-btn text color="primary" @click="DateModal = false"
+                >Cancel</v-btn
+              >
+              <v-btn
+                text
+                color="primary"
+                @click="
+                  $refs.dialog.save(TargetDate);
+                  getCalenderEvents();
+                "
+                >OK</v-btn
+              >
             </v-date-picker>
           </v-dialog>
         </v-col>
       </v-row>
       <v-row v-if="noDataFlag">
-        <v-col cols=12 lg=12 md=12 sm=12 align="center">
+        <v-col cols="12" lg="12" md="12" sm="12" align="center">
           <h1>No Plan… Let's Take a Break!😆</h1>
         </v-col>
       </v-row>
@@ -54,32 +64,32 @@ export default {
   components: {
     PieChart,
   },
-  data () {
+  data() {
     return {
       TargetDate: new Date().toISOString().substr(0, 10),
       DateModal: false,
       datacollection: {
         labels: [],
-        datasets: []
+        datasets: [],
       },
       option: {},
       noDataFlag: false,
-    }
+    };
   },
   mounted() {
     this.getCalenderEvents();
   },
   computed: {
-    ...mapState(['userInfo'])
+    ...mapState(["userInfo"]),
   },
   methods: {
-    getCalenderEvents () {
+    getCalenderEvents() {
       this.$gapi.getGapiClient().then((gapi) => {
         const resource = {
           timeMax: `${this.TargetDate}T23:59:59+09:00`,
           timeMin: `${this.TargetDate}T00:00:00+09:00`,
           timeZone: "Asia/Tokyo",
-        }
+        };
         const request = gapi.client.calendar.events.list({
           calendarId: this.userInfo.email,
           resource: resource,
@@ -88,14 +98,14 @@ export default {
           this.parseDateTime(res); // データが無くても更新されないとグラフが消えないため実行
           this.noDataFlag = res.items.length ? false : true;
         });
-      })
+      });
     },
     parseDateTime(res) {
       const labels = res.items.map((item) => item.summary);
       const datalists = res.items.map((item) => {
         const start = dayjs(item.start.dateTime);
         const end = dayjs(item.end.dateTime);
-        const timeDiff = end.diff(start, 'minute') / 60;
+        const timeDiff = end.diff(start, "minute") / 60;
         return timeDiff;
       });
       this.fillData(labels, datalists);
@@ -106,18 +116,18 @@ export default {
         datasets: [
           {
             backgroundColor: data.map((item, index) => {
-              const h = (index * 5) * (360 / 100);
+              const h = index * 5 * (360 / 100);
               return `hsl(${h + 20}, 80%, 70%)`;
             }),
-            data
+            data,
           },
         ],
-      }
+      };
       this.option = {
         responsive: true,
-        maintainAspectRatio: false
-      }
-    }
+        maintainAspectRatio: false,
+      };
+    },
   },
 };
 </script>

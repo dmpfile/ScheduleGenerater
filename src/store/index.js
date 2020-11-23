@@ -9,18 +9,18 @@ export default new Vuex.Store({
       email: "",
       fullname: "",
       iconImg: "",
-    }
+    },
   },
   mutations: {
-    setUserInfo (state, payload) {
+    setUserInfo(state, payload) {
       state.userInfo.email = payload.email;
       state.userInfo.fullname = payload.displayName;
       state.userInfo.iconImg = payload.photoURL;
     },
   },
   actions: {
-    setUserInfo ({ commit }, userInfo) {
-      commit('setUserInfo', userInfo)
-    }
- },
+    setUserInfo({ commit }, userInfo) {
+      commit("setUserInfo", userInfo);
+    },
+  },
 });
