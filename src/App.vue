@@ -1,6 +1,13 @@
 <template>
   <v-app>
     <v-navigation-drawer v-model="drawer" app clipped>
+      <v-list-item class="px-2">
+        <v-list-item-avatar>
+          <v-img :src="userInfo.iconImg"></v-img>
+        </v-list-item-avatar>
+        <v-list-item-title>{{ userInfo.fullname }}</v-list-item-title>
+      </v-list-item>
+      <v-divider></v-divider>
       <v-list dense>
         <v-list-item link to="/edit">
           <v-list-item-action>
@@ -50,6 +57,7 @@
 
 <script>
 import firebase from "firebase";
+import { mapState } from "vuex";
 
 export default {
   name: "App",
@@ -58,6 +66,9 @@ export default {
       isLogin: false,
       drawer: false,
     };
+  },
+  computed: {
+    ...mapState(['userInfo'])
   },
   created() {
     firebase.auth().onAuthStateChanged((user) => {

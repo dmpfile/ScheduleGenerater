@@ -8,11 +8,15 @@ export default new Vuex.Store({
   state: {
     userInfo: {
       email: "",
+      fullname: "",
+      iconImg: "",
     }
   },
   mutations: {
     setUserInfo (state, payload) {
-      state.userInfo.email = payload.email
+      state.userInfo.email = payload.email;
+      state.userInfo.fullname = payload.displayName;
+      state.userInfo.iconImg = payload.photoURL;
     },
   },
   actions: {
