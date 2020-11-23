@@ -46,7 +46,7 @@
         :placeholder="'Schedule ' + ScheduleNum"
         solo
         clearable
-        append-icon="mdi-calendar-plus"
+        append-icon="mdi-calendar-edit"
       ></v-text-field>
       <v-dialog v-model="DetailModal" persistent max-width="600px">
         <v-card>
@@ -75,11 +75,11 @@
               </v-row>
               <v-row>
                 <v-col>
-                  <v-text-field
+                  <v-textarea
                     v-model="ScheduleLists[TargetModal].Description"
                     label="詳細"
                     required
-                  ></v-text-field>
+                  ></v-textarea>
                 </v-col>
               </v-row>
             </v-container>
@@ -112,6 +112,7 @@
 
 <script>
 import { mapState } from "vuex";
+import dayjs from "dayjs";
 
 export default {
   name: "edit",
@@ -119,9 +120,7 @@ export default {
     return {
       TargetDate: new Date().toISOString().substr(0, 10),
       TimeItems: [],
-      ScheduleLists: [
-        { Summary: "", StartTime: "07:00", EndTime: "08:00", Description: "" },
-      ],
+      ScheduleLists: [],
       TargetModal: 0,
       DateModal: false,
       DetailModal: false,
@@ -132,6 +131,7 @@ export default {
   },
   created() {
     this.makeTimesArray();
+    this.newSchedule();
     if (!this.$gapi.isAuthenticated()) {
       this.$gapi.login();
     }
@@ -155,10 +155,12 @@ export default {
       return num.toString().padStart(targetLength, 0);
     },
     newSchedule() {
+      const StartTime = `${dayjs().format("HH")}:00`;
+      const EndTime = `${dayjs().add(1, 'hour').format("HH")}:00`;
       this.ScheduleLists.push({
         Summary: "",
-        StartTime: "10:00",
-        EndTime: "11:00",
+        StartTime,
+        EndTime,
         Description: "",
       });
     },
@@ -184,14 +186,8 @@ export default {
           request.execute();
         }
         alert("カレンダーに共有しました");
-        this.ScheduleLists = [
-          {
-            Summary: "",
-            StartTime: "10:00",
-            EndTime: "11:00",
-            Description: "",
-          },
-        ];
+        this.ScheduleLists = [];
+        this.newSchedule();
       });
     },
     validTimes() {
