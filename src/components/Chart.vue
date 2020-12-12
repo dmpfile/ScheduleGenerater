@@ -44,7 +44,8 @@
       </v-row>
       <v-row v-if="noDataFlag">
         <v-col cols="12" lg="12" md="12" sm="12" align="center">
-          <h1>No Plan… Let's Take a Break!😆</h1>
+          <h1>No Plan…</h1>
+          <h1>{{ noPlanText[Math.floor(Math.random() * 3)] }}</h1>
         </v-col>
       </v-row>
     </v-container>
@@ -74,6 +75,11 @@ export default {
       },
       option: {},
       noDataFlag: false,
+      noPlanText: [
+        "Let's Make a Plan!😆",
+        "Have a Nice Day!😌",
+        "Take a Break？😴",
+      ]
     };
   },
   mounted() {
