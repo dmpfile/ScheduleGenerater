@@ -79,7 +79,7 @@ export default {
         "Let's Make a Plan!😆",
         "Have a Nice Day!😌",
         "Take a Break？😴",
-      ]
+      ],
     };
   },
   mounted() {

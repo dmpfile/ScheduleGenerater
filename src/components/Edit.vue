@@ -91,13 +91,15 @@
               <v-btn color="blue darken-1" text @click="validTimes()"
                 >Close</v-btn
               >
-              <v-btn color="blue darken-1" text @click="validTimes()">Save</v-btn>
+              <v-btn color="blue darken-1" text @click="validTimes()"
+                >Save</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-dialog>
       </v-form>
-    
-      <v-row justify="center" style="height: 100px;">
+
+      <v-row justify="center" style="height: 100px">
         <v-btn fab small color="primary" @click="newSchedule">
           <v-icon dark>mdi-plus</v-icon>
         </v-btn>
@@ -110,19 +112,10 @@
         </v-btn>
       </v-row>
 
-      <v-snackbar
-        v-model="snackBar"
-        centered
-        color="primary"
-      >
+      <v-snackbar v-model="snackBar" centered color="primary">
         {{ snackText }}
         <template v-slot:action="{ attrs }">
-          <v-btn
-            color="white"
-            text
-            v-bind="attrs"
-            @click="snackBar = false"
-          >
+          <v-btn color="white" text v-bind="attrs" @click="snackBar = false">
             Close
           </v-btn>
         </template>
@@ -145,7 +138,7 @@ export default {
       TargetModal: 0,
       DateModal: false,
       DetailModal: false,
-      snackBar: false, 
+      snackBar: false,
       snackText: "",
     };
   },
@@ -179,7 +172,10 @@ export default {
     },
     newSchedule() {
       const StartTime = `${dayjs().format("HH")}:00`;
-      const EndTime = dayjs().add(1, "hour").format("HH") === "00" ? "23:45" : `${dayjs().add(1, "hour").format("HH")}:00`;
+      const EndTime =
+        dayjs().add(1, "hour").format("HH") === "00"
+          ? "23:45"
+          : `${dayjs().add(1, "hour").format("HH")}:00`;
       this.ScheduleLists.push({
         Summary: "",
         StartTime,
@@ -192,7 +188,7 @@ export default {
       if (!allSummary) {
         this.snackText = "タイトルが未入力です。";
         this.snackBar = true;
-        return true
+        return true;
       }
       this.$gapi.getGapiClient().then((gapi) => {
         for (let i = 0; i < this.ScheduleLists.length; i++) {

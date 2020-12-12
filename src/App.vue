@@ -7,7 +7,9 @@
         </v-list-item-avatar>
         <v-list-item-title>{{ userInfo.fullname }}</v-list-item-title>
       </v-list-item>
+
       <v-divider></v-divider>
+
       <v-list dense>
         <v-list-item link to="/edit">
           <v-list-item-action>
@@ -17,6 +19,7 @@
             <v-list-item-title>Edit</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
         <v-list-item link to="/chart">
           <v-list-item-action>
             <v-icon>mdi-poll-box</v-icon>
@@ -25,7 +28,8 @@
             <v-list-item-title>Chart</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link v-if="isLogin" @click="signOut">
+
+        <v-list-item link @click="signOut">
           <v-list-item-action>
             <v-icon>mdi-logout</v-icon>
           </v-list-item-action>
@@ -37,7 +41,10 @@
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon
+        v-if="isLogin"
+        @click.stop="drawer = !drawer"
+      ></v-app-bar-nav-icon>
       <v-toolbar-title>Scedule Generetor</v-toolbar-title>
     </v-app-bar>
 
