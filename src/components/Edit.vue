@@ -159,7 +159,7 @@ export default {
     },
     newSchedule() {
       const StartTime = `${dayjs().format("HH")}:00`;
-      const EndTime = `${dayjs().add(1, "hour").format("HH")}:00`;
+      const EndTime = dayjs().add(1, "hour").format("HH") === "00" ? "23:45" : `${dayjs().add(1, "hour").format("HH")}:00`;
       this.ScheduleLists.push({
         Summary: "",
         StartTime,
