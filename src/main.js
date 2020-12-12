@@ -35,7 +35,7 @@ Vue.use(VueGAPI, apiConfig);
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!firebase.auth().currentUser) {
-      next({ path: "/login" });
+      next({ path: "/schedule/login" });
     } else {
       next();
     }

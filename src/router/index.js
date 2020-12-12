@@ -9,16 +9,16 @@ Vue.use(Router);
 const router = new Router({
   mode: "history",
   routes: [
-    { path: "/", component: Login },
-    { path: "/login", name: "Login", component: Login },
+    { path: "/schedule/", component: Login },
+    { path: "/schedule/login", name: "Login", component: Login },
     {
-      path: "/edit",
+      path: "/schedule/edit",
       name: "Edit",
       component: Edit,
       meta: { requiresAuth: true },
     },
     {
-      path: "/chart",
+      path: "/schedule/chart",
       name: "Chart",
       component: Chart,
       meta: { requiresAuth: true },

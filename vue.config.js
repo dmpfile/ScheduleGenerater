@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: "/schedule/",
   configureWebpack: {
     resolve: {
       alias: {

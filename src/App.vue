@@ -11,7 +11,7 @@
       <v-divider></v-divider>
 
       <v-list dense>
-        <v-list-item link to="/edit">
+        <v-list-item link to="/schedule/edit">
           <v-list-item-action>
             <v-icon>mdi-pencil</v-icon>
           </v-list-item-action>
@@ -20,7 +20,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item link to="/chart">
+        <v-list-item link to="/schedule/chart">
           <v-list-item-action>
             <v-icon>mdi-poll-box</v-icon>
           </v-list-item-action>
@@ -82,7 +82,7 @@ export default {
       this.user = user ? user : {};
       if (user) {
         this.isLogin = true;
-        this.$router.push("/edit");
+        this.$router.push("/schedule/edit");
       }
     });
   },
@@ -90,7 +90,7 @@ export default {
     signOut() {
       firebase.auth().signOut();
       this.$gapi.logout();
-      this.$router.push("/login");
+      this.$router.push("/schedule/login");
       this.isLogin = false;
     },
   },
