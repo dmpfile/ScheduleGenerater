@@ -109,6 +109,24 @@
           <v-icon>mdi-calendar-range</v-icon>
         </v-btn>
       </v-row>
+
+      <v-snackbar
+        v-model="snackBar"
+        centered
+        color="primary"
+      >
+        {{ snackText }}
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            color="white"
+            text
+            v-bind="attrs"
+            @click="snackBar = false"
+          >
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
     </v-container>
   </v-app>
 </template>
@@ -127,6 +145,8 @@ export default {
       TargetModal: 0,
       DateModal: false,
       DetailModal: false,
+      snackBar: false, 
+      snackText: "",
     };
   },
   computed: {
@@ -168,6 +188,12 @@ export default {
       });
     },
     shareWithGoogle() {
+      const allSummary = this.ScheduleLists.some((x) => x.Summary !== "");
+      if (!allSummary) {
+        this.snackText = "タイトルが未入力です。";
+        this.snackBar = true;
+        return true
+      }
       this.$gapi.getGapiClient().then((gapi) => {
         for (let i = 0; i < this.ScheduleLists.length; i++) {
           const resource = {
@@ -188,7 +214,8 @@ export default {
           });
           request.execute();
         }
-        alert("カレンダーに共有しました");
+        this.snackText = "Googleカレンダーに共有しました。";
+        this.snackBar = true;
         this.ScheduleLists = [];
         this.newSchedule();
       });
