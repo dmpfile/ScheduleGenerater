@@ -36,83 +36,80 @@
           </v-dialog>
         </v-col>
       </v-row>
+      <v-form>
+        <v-text-field
+          v-for="ScheduleNum in ScheduleLists.length"
+          v-model="ScheduleLists[ScheduleNum - 1].Summary"
+          @click:append="
+            DetailModal = true;
+            TargetModal = ScheduleNum - 1;
+          "
+          :key="ScheduleNum"
+          :placeholder="'Schedule ' + ScheduleNum"
+          solo
+          clearable
+          append-icon="mdi-calendar-edit"
+        ></v-text-field>
+        <v-dialog v-model="DetailModal" persistent max-width="600px">
+          <v-card>
+            <v-card-title>
+              <span class="headline">Schedule Detail</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col>
+                    <v-select
+                      :items="TimeItems"
+                      v-model="ScheduleLists[TargetModal].StartTime"
+                      menu-props="auto"
+                      label="Start"
+                    ></v-select>
+                  </v-col>
+                  <v-col>
+                    <v-select
+                      :items="TimeItems"
+                      v-model="ScheduleLists[TargetModal].EndTime"
+                      menu-props="auto"
+                      label="End"
+                    ></v-select>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col>
+                    <v-textarea
+                      v-model="ScheduleLists[TargetModal].Description"
+                      label="詳細"
+                      required
+                    ></v-textarea>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="validTimes()"
+                >Close</v-btn
+              >
+              <v-btn color="blue darken-1" text @click="validTimes()">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-form>
+    
+      <v-row justify="center" style="height: 100px;">
+        <v-btn fab small color="primary" @click="newSchedule">
+          <v-icon dark>mdi-plus</v-icon>
+        </v-btn>
+      </v-row>
+
+      <h2 class="text-center">Share!</h2>
+      <v-row justify="center">
+        <v-btn icon color="red" x-large @click="shareWithGoogle">
+          <v-icon>mdi-calendar-range</v-icon>
+        </v-btn>
+      </v-row>
     </v-container>
-
-    <v-form>
-      <v-text-field
-        v-for="ScheduleNum in ScheduleLists.length"
-        v-model="ScheduleLists[ScheduleNum - 1].Summary"
-        @click:append="
-          DetailModal = true;
-          TargetModal = ScheduleNum - 1;
-        "
-        :key="ScheduleNum"
-        :placeholder="'Schedule ' + ScheduleNum"
-        solo
-        clearable
-        append-icon="mdi-calendar-edit"
-      ></v-text-field>
-      <v-dialog v-model="DetailModal" persistent max-width="600px">
-        <v-card>
-          <v-card-title>
-            <span class="headline">Schedule Detail</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col>
-                  <v-select
-                    :items="TimeItems"
-                    v-model="ScheduleLists[TargetModal].StartTime"
-                    menu-props="auto"
-                    label="Start"
-                  ></v-select>
-                </v-col>
-                <v-col>
-                  <v-select
-                    :items="TimeItems"
-                    v-model="ScheduleLists[TargetModal].EndTime"
-                    menu-props="auto"
-                    label="End"
-                  ></v-select>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col>
-                  <v-textarea
-                    v-model="ScheduleLists[TargetModal].Description"
-                    label="詳細"
-                    required
-                  ></v-textarea>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="validTimes()"
-              >Close</v-btn
-            >
-            <v-btn color="blue darken-1" text @click="validTimes()">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-form>
-
-    <v-row justify="center">
-      <v-btn fab small color="primary" @click="newSchedule">
-        <v-icon dark>mdi-plus</v-icon>
-      </v-btn>
-    </v-row>
-    <div class="text-center">
-      <p>スケジュールを共有する</p>
-      <v-btn icon color="red" x-large @click="shareWithGoogle">
-        <v-icon>mdi-calendar-range</v-icon>
-      </v-btn>
-      <v-btn icon color="primary" x-large>
-        <v-icon>mdi-twitter</v-icon>
-      </v-btn>
-    </div>
   </v-app>
 </template>
 
